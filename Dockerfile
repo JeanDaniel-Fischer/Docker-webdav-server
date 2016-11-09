@@ -17,6 +17,7 @@ VOLUME /ssl/cert.cert
 
 # Configuration
 COPY docker/webdav.conf /usr/local/apache2/conf/httpd.conf
+COPY docker/ssl.conf /usr/local/apache2/conf/ssl.conf
 
 # Start with creating ht password
 ENV WEB_DAV_USER
