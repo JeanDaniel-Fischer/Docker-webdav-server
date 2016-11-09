@@ -1,0 +1,26 @@
+FROM httpd-arm:alpine
+# Conf for only webdav that serve data
+
+# WebDav lock db
+RUN mkdir -p /usr/local/apache2/var/
+RUN chmod 777 /usr/local/apache2/var
+
+# Datas
+RUN rm -f /usr/local/apache2/htdocs/*
+RUN chmod 777 /usr/local/apache2/htdocs
+VOLUME /usr/local/apache2/htdocs/
+
+# SSL
+RUN mkdir /ssl
+VOLUME /ssl/cert.key
+VOLUME /ssl/cert.cert
+
+# Configuration
+COPY docker/webdav.conf /usr/local/apache2/conf/httpd.conf
+
+# Start with creating ht password
+ENV WEB_DAV_USER
+ENV WEB_DAV_PASSWORD
+COPY docker/docker-entrypoint.sh docker-entrypoint.sh
+RUN CHMOD 777 docker-entrypoint.sh
+CMD docker-entrypoint.sh
