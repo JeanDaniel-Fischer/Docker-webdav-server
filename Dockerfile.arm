@@ -12,16 +12,13 @@ VOLUME /usr/local/apache2/htdocs/
 
 # SSL
 RUN mkdir /ssl
-VOLUME /ssl/cert.key
-VOLUME /ssl/cert.cert
+VOLUME /ssl
 
 # Configuration
 COPY docker/webdav.conf /usr/local/apache2/conf/httpd.conf
 COPY docker/ssl.conf /usr/local/apache2/conf/ssl.conf
 
 # Start with creating ht password
-ENV WEB_DAV_USER
-ENV WEB_DAV_PASSWORD
-COPY docker/docker-entrypoint.sh docker-entrypoint.sh
-RUN CHMOD 777 docker-entrypoint.sh
+COPY docker/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN CHMOD 777 /usr/local/bin/docker-entrypoint.sh
 CMD docker-entrypoint.sh
