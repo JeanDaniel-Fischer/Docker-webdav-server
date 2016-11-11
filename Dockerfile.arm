@@ -20,5 +20,5 @@ COPY docker/ssl.conf /usr/local/apache2/conf/ssl.conf
 
 # Start with creating ht password
 COPY docker/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
-RUN CHMOD 777 /usr/local/bin/docker-entrypoint.sh
+RUN chmod 777 /usr/local/bin/docker-entrypoint.sh
 CMD docker-entrypoint.sh
